@@ -1,0 +1,14 @@
+﻿@mixin font-face($name, $file, $weight: 400, $style: normal) {
+    @font-face {
+        font-family: '#{$name}';
+        src: url('#{$font-path}/#{$file}.otf') format('opentype');
+        font-weight: $weight;
+        font-style: $style;
+        font-display: swap;
+    }
+}
+
+
+@include font-face('ApexMk2', 'ApexMk2-Regular', 400, normal);
+@include font-face('ApexMk2', 'ApexMk2-LightCondensed', 300, normal);
+@include font-face('ApexMk2', 'ApexMk2-BoldExtended', 700, normal);

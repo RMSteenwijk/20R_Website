@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "20R_HomePage": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:60193;http://localhost:60194"
+    }
+  }
+}

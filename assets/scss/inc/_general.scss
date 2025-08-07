@@ -1,0 +1,27 @@
+html, body {
+    font-family: 'ApexMk2';
+    font-weight: 400;
+}
+
+body {
+  padding-top: 3.5rem;
+  
+}
+
+main {
+    padding: 2rem 0;
+}
+img {
+    max-width: 100%;
+}
+a {
+    color: $color-primary;
+    transition: all .2s ease-in-out;
+
+    &:hover {
+        color: darken($color-primary, 50%);
+    }
+}
+.container {
+    max-width: 1140px;
+}

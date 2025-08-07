@@ -1,0 +1,8 @@
+/bin
+/obj
+/.vs
+/uploads
+
+*.db
+*.png
+/node_modules
