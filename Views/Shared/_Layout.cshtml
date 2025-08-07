@@ -28,9 +28,24 @@
                 <ul class="navbar-nav ml-auto">
                     @foreach (var item in (await WebApp.Site.Sitemap.ForUserAsync(User, Auth)).Where(i => !i.IsHidden))
                     {
-                    <li class="nav-item@(item.Id == WebApp.PageId || item.HasChild(WebApp.PageId) ? " active" : "")">
-                        <a class="nav-link" href="@WebApp.Url(item)">@item.MenuTitle</a>
-                    </li>
+                        if(item.Items.Count > 0)
+                        {
+                            <li class="dropdown nav-item@(item.Id == WebApp.PageId || item.HasChild(WebApp.PageId) ? " active" : "")">
+                                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria href="@WebApp.Url(item)">@item.MenuTitle</a>
+                                <ul class="dropdown-menu">
+                                    @foreach (var childItem in item.Items.Where(i => !i.IsHidden))
+                                    {
+                                        <li><a class="dropdown-item" href="@WebApp.Url(childItem)">@childItem.MenuTitle</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item@(item.Id == WebApp.PageId || item.HasChild(WebApp.PageId) ? " active" : "")">
+                                <a class="nav-link" href="@WebApp.Url(item)">@item.MenuTitle</a>
+                            </li>
+                        }
                     }
                 </ul>
                 <div id="switch">
