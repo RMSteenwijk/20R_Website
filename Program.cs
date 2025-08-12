@@ -58,10 +58,11 @@ builder.AddPiranha(options =>
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-}
+//if (app.Environment.IsDevelopment()) TEMP To fix the 503 errors
+//{
+    
+//}
+app.UseDeveloperExceptionPage();
 
 app.UsePiranha(options =>
 {
