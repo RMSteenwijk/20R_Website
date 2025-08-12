@@ -8,3 +8,5 @@
 *.db-wal
 *.png
 /node_modules
+/piranha.db-shm
+/piranha.db-wal
