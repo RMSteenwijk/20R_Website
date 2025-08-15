@@ -5,12 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>_$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
   </PropertyGroup>
-
-	<PropertyGroup>
-		<AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
-	</PropertyGroup>
-
-
+	
 	<ItemGroup>
     <PackageReference Include="Piranha" Version="12.0.0" />
     <PackageReference Include="Piranha.AspNetCore" Version="12.0.0" />

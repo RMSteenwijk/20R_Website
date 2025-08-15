@@ -1,12 +1,13 @@
-/bin
-/obj
+*/bin
+*/obj
+*/.vs
 /.vs
-/uploads
+*/uploads
 
 *.db
 *.db-shm
 *.db-wal
 *.png
-/node_modules
+*/node_modules
 /piranha.db-shm
 /piranha.db-wal
