@@ -1,10 +1,12 @@
+using _20R_HomePage.Cleanup;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Piranha;
-using Piranha.AttributeBuilder;
 using Piranha.AspNetCore.Identity.SQLite;
+using Piranha.AttributeBuilder;
 using Piranha.Data.EF.SQLite;
 using Piranha.Manager.Editor;
-using Microsoft.AspNetCore.DataProtection;
 using System.Runtime.InteropServices;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,6 +40,7 @@ builder.AddPiranha(options =>
     options.UseEF<SQLiteDb>(db => db.UseSqlite(connectionString));
     options.UseIdentityWithSeed<IdentitySQLiteDb>(db => db.UseSqlite(connectionString));
 
+
     /**
      * Here you can configure the different permissions
      * that you want to use for securing content in the
@@ -57,12 +60,17 @@ builder.AddPiranha(options =>
 });
 
 var app = builder.Build();
+using(var scope = app.Services.CreateScope())
+{
+    CleanDBIfNeeded.Clean(scope.ServiceProvider.GetRequiredService<SQLiteDb>());
+}
 
-//if (app.Environment.IsDevelopment()) TEMP To fix the 503 errors
-//{
-    
-//}
-app.UseDeveloperExceptionPage();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+
 
 app.UsePiranha(options =>
 {

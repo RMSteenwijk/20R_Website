@@ -1,6 +1,7 @@
 @{
     var version = Piranha.Utils.GetAssemblyVersion(typeof(Piranha.App).Assembly);
     version = version.Substring(0, version.LastIndexOf("."));
+    var currentSite = await WebApp.Site.GetContentAsync<TwentyRSite>();
 }
 <!doctype html>
 <html lang="en" data-bs-theme="">
@@ -20,7 +21,7 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
         <div class="container">
             <a class="navbar-brand" href="~/"><img src="~/assets/images/logo.svg" class="logo-svg" /></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -30,32 +31,42 @@
                     {
                         if(item.Items.Count > 0)
                         {
-                            <li class="dropdown nav-item@(item.Id == WebApp.PageId || item.HasChild(WebApp.PageId) ? " active" : "")">
+                            <li class="dropdown nav-item@(item.Id == WebApp.PageId ? " active" : "")">
                                 <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria href="@WebApp.Url(item)">@item.MenuTitle</a>
                                 <ul class="dropdown-menu">
                                     @foreach (var childItem in item.Items.Where(i => !i.IsHidden))
                                     {
-                                        <li><a class="dropdown-item" href="@WebApp.Url(childItem)">@childItem.MenuTitle</a></li>
+                                        <li class="nav-item@(childItem.Id == WebApp.PageId ? " active" : "")">
+                                            <a class="nav-link" href="@WebApp.Url(childItem)">@childItem.MenuTitle</a>
+                                        </li>
                                     }
                                 </ul>
                             </li>
                         }
                         else
                         {
-                            <li class="nav-item@(item.Id == WebApp.PageId || item.HasChild(WebApp.PageId) ? " active" : "")">
+                            <li class="nav-item@(item.Id == WebApp.PageId ? " active" : "")">
                                 <a class="nav-link" href="@WebApp.Url(item)">@item.MenuTitle</a>
                             </li>
                         }
                     }
                 </ul>
+                <div class="top-right-bar">
+                    @if (currentSite != null)
+                    {
+                        <div class="center-link">
+                            @Html.Raw(currentSite.HeaderContents.TopRightText)
+                        </div>
+                    }
+                </div>
                 <div id="switch">
-                        <input type="checkbox" class="checkbox" id="chk" />
-                        <label class="label" for="chk">
-                            <i class="fas fa-moon"></i>
-                            <i class="fas fa-sun"></i>
-                            <div class="ball"></div>
-                        </label>
-                    </div>
+                    <input type="checkbox" class="checkbox" id="chk" />
+                    <label class="label" for="chk">
+                        <i class="fas fa-moon"></i>
+                        <i class="fas fa-sun"></i>
+                        <div class="ball"></div>
+                    </label>
+                </div>
             </div>
         </div>
     </nav>
@@ -64,9 +75,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            @{
-                var currentSite = await WebApp.Site.GetContentAsync<SiteWithFooter>();
-            }
+            
             @if (currentSite != null)
             {
                 <div class="row">

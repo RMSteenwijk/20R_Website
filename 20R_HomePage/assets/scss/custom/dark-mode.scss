@@ -42,6 +42,16 @@
 	color: #f39c12;
 }
 
-#switch{
-    margin-left: auto;
+#switch {
+	margin-left: 20px;
+}
+@media screen and (max-width: 600px) {
+	#switch {
+		visibility: hidden;
+		clear: both;
+		float: left;
+		margin: 10px auto 5px 20px;
+		width: 28%;
+		display: none;
+	}
 }

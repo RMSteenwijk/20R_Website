@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Components.Routing;
-using Piranha.AttributeBuilder;
+﻿using Piranha.AttributeBuilder;
 using Piranha.Extend;
 using Piranha.Extend.Fields;
 using Piranha.Models;
@@ -10,6 +9,7 @@ public class SiteWithFooter : SiteContent<SiteWithFooter>
     [Region(Title = "Footer", Display = RegionDisplayMode.Setting)]
     public Footer FooterContents { get; set; }
 }
+
 
 public class Footer
 {
